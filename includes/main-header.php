@@ -53,7 +53,7 @@ if (isset($_Get['action'])) {
 								<div class="total-price-basket">
 									<span class="lbl">Giỏ hàng -</span>
 									<span class="total-price">
-										<span class="value"><?php echo $_SESSION['tp']; ?></span>
+										<span class="value"><?php echo number_format($_SESSION['tp']); ?></span>
 										<span class="sign">Đ</span>
 									</span>
 								</div>
@@ -67,7 +67,7 @@ if (isset($_Get['action'])) {
 						<ul class="dropdown-menu">
 
 							<?php
-							$sql = "SELECT * FROM products WHERE id IN(";
+							$sql = "SELECT products.*,subcategory.subcategory as productName FROM products join subcategory on subcategory.id=products.subcategory WHERE products.id IN(";
 							foreach ($_SESSION['cart'] as $id => $value) {
 								$sql .= $id . ",";
 							}
@@ -110,7 +110,7 @@ if (isset($_Get['action'])) {
 								<div class="clearfix cart-total">
 									<div class="pull-right">
 
-										<span class="text">Tổng giá tiền :</span><span class='price'><?php echo $_SESSION['tp'] = "$totalprice" . ".00"; ?>Đ</span>
+										<span class="text">Tổng giá tiền :</span><span class='price'><?php echo number_format($_SESSION['tp'] = "$totalprice"); ?> Đ</span>
 
 									</div>
 

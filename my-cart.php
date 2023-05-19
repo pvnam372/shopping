@@ -163,7 +163,7 @@ if (isset($_POST['ordersubmit'])) {
 										<tbody>
 											<?php
 											$pdtid = array();
-											$sql = "SELECT * FROM products WHERE id IN(";
+											$sql = "SELECT products.*, subcategory.subcategory as productName FROM products join subcategory on subcategory.id=products.subcategory WHERE products.id IN(";
 											foreach ($_SESSION['cart'] as $id => $value) {
 												$sql .= $id . ",";
 											}
@@ -190,10 +190,7 @@ if (isset($_POST['ordersubmit'])) {
 															</a>
 														</td>
 														<td class="cart-product-name-info">
-															<h4 class='cart-product-description'><a href="product-details.php?pid=<?php echo htmlentities($pd = $row['id']); ?>"><?php echo $row['productName'];
-
-																																												$_SESSION['sid'] = $pd;
-																																												?></a></h4>
+															<h4 class='cart-product-description'><a href="product-details.php?pid=<?php echo htmlentities($pd = $row['id']); ?>"><?php echo $row['productName'];?> <?php echo htmlentities($row['productcapacity']);?>GB <?php echo htmlentities($row['productColor']);$_SESSION['sid'] = $pd;?></a></h4>
 															<div class="row">
 																<div class="col-sm-4">
 																	<div class="rating rateit-small"></div>
@@ -220,10 +217,10 @@ if (isset($_POST['ordersubmit'])) {
 
 															</div>
 														</td>
-														<td class="cart-product-sub-total"><span class="cart-sub-total-price"><?php echo "Rs" . " " . $row['productPrice']; ?>.00</span></td>
-														<td class="cart-product-sub-total"><span class="cart-sub-total-price"><?php echo "Rs" . " " . $row['shippingCharge']; ?>.00</span></td>
+														<td class="cart-product-sub-total"><span class="cart-sub-total-price"><?php echo number_format($row['productPrice']); ?> Đ</span></td>
+														<td class="cart-product-sub-total"><span class="cart-sub-total-price"><?php echo number_format($row['shippingCharge']); ?> Đ</span></td>
 
-														<td class="cart-product-grand-total"><span class="cart-grand-total-price"><?php echo ($_SESSION['cart'][$row['id']]['quantity'] * $row['productPrice'] + $row['shippingCharge']); ?>.00</span></td>
+														<td class="cart-product-grand-total"><span class="cart-grand-total-price"><?php echo (number_format($_SESSION['cart'][$row['id']]['quantity'] * $row['productPrice'] + $row['shippingCharge'])); ?> Đ</span></td>
 													</tr>
 
 											<?php }
@@ -304,7 +301,7 @@ if (isset($_POST['ordersubmit'])) {
 									<th>
 
 										<div class="cart-grand-total">
-											Tổng tiền<span class="inner-left-md"><?php echo $_SESSION['tp'] = "$totalprice" . ".00"; ?></span>
+											Tổng tiền<span class="inner-left-md"><?php echo number_format($_SESSION['tp'] = "$totalprice");?> Đ</span>
 										</div>
 									</th>
 								</tr>

@@ -115,7 +115,7 @@ if (strlen($_SESSION['login']) == 0) {
 									</thead>
 									<tbody>
 										<?php
-										$ret = mysqli_query($con, "select products.productName as pname,products.productName as proid,products.productImage1 as pimage,products.productPrice as pprice,wishlist.productId as pid,wishlist.id as wid from wishlist join products on products.id=wishlist.productId where wishlist.userId='" . $_SESSION['id'] . "'");
+										$ret = mysqli_query($con, "select subcategory.subcategory as pname,subcategory.subcategory as proid,products.productImage1 as pimage,products.productPrice as pprice,wishlist.productId as pid,wishlist.id as wid from wishlist join products on products.id=wishlist.productId join subcategory on subcategory.id=products.subcategory where wishlist.userId='" . $_SESSION['id'] . "'");
 										$num = mysqli_num_rows($ret);
 										if ($num > 0) {
 											while ($row = mysqli_fetch_array($ret)) {

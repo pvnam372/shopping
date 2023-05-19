@@ -93,7 +93,7 @@ if (strlen($_SESSION['login']) == 0) {
 												<input type="radio" name="paymethod" value="COD" checked="checked"> COD
 												<input type="radio" name="paymethod" value="Internet Banking"> Ngân hàng điện tử
 												<input type="radio" name="paymethod" value="Debit / Credit card"> Thẻ ghi nợ / Thẻ tín dụng <br /><br />
-												<input type="submit" value="submit" name="submit" class="btn btn-primary">
+												<input type="submit" value="Thanh toán" name="submit" class="btn btn-primary">
 
 
 											</form>

@@ -1,34 +1,36 @@
 <?php
 session_start();
-error_reporting(0);
+//error_reporting(0);
 include('includes/config.php');
 if (strlen($_SESSION['login']) == 0) {
 	header('location:index.php');
 } else {
+	// code for billing address updation
 	if (isset($_POST['update'])) {
-		$name = $_POST['name'];
-		$contactno = $_POST['contactno'];
-		$query = mysqli_query($con, "update users set name='$name',contactno='$contactno' where id='" . $_SESSION['id'] . "'");
+		$baddress = $_POST['billingaddress'];
+		$bstate = $_POST['bilingstate'];
+		$bcity = $_POST['billingcity'];
+		$bpincode = $_POST['billingpincode'];
+		$query = mysqli_query($con, "update users set billingAddress='$baddress',billingState='$bstate',billingCity='$bcity',billingPincode='$bpincode' where id='" . $_SESSION['id'] . "'");
 		if ($query) {
-			echo "<script>alert('Đã cập nhật');</script>";
+			echo "<script>alert('Billing Address has been updated');</script>";
 		}
 	}
 
 
-	date_default_timezone_set('Asia/Kolkata'); // change according timezone
-	$currentTime = date('d-m-Y h:i:s A', time());
-
-
-	if (isset($_POST['submit'])) {
-		$sql = mysqli_query($con, "SELECT password FROM  users where password='" . md5($_POST['cpass']) . "' && id='" . $_SESSION['id'] . "'");
-		$num = mysqli_fetch_array($sql);
-		if ($num > 0) {
-			$con = mysqli_query($con, "update users set password='" . md5($_POST['newpass']) . "', updationDate='$currentTime' where id='" . $_SESSION['id'] . "'");
-			echo "<script>alert('Đổi mật khẩu thành công !!');</script>";
-		} else {
-			echo "<script>alert('Mật khẩu không khớp !!');</script>";
+	// code for Shipping address updation
+	if (isset($_POST['shipupdate'])) {
+		$saddress = $_POST['shippingaddress'];
+		$sstate = $_POST['shippingstate'];
+		$scity = $_POST['shippingcity'];
+		$spincode = $_POST['shippingpincode'];
+		$query = mysqli_query($con, "update users set shippingAddress='$saddress',shippingState='$sstate',shippingCity='$scity',shippingPincode='$spincode' where id='" . $_SESSION['id'] . "'");
+		if ($query) {
+			echo "<script>alert('Shipping Address has been updated');</script>";
 		}
 	}
+
+
 
 ?>
 	<!DOCTYPE html>
@@ -70,28 +72,6 @@ if (strlen($_SESSION['login']) == 0) {
 		<link href="assets/css/dark-green.css" rel="alternate stylesheet" title="Darkgreen color">
 		<link rel="stylesheet" href="assets/css/font-awesome.min.css">
 		<link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700' rel='stylesheet' type='text/css'>
-		<script type="text/javascript">
-			function valid() {
-				if (document.chngpwd.cpass.value == "") {
-					alert("Chưa nhập mật khẩu hiện tại !!");
-					document.chngpwd.cpass.focus();
-					return false;
-				} else if (document.chngpwd.newpass.value == "") {
-					alert("Chưa nhập mật khẩu mới !!");
-					document.chngpwd.newpass.focus();
-					return false;
-				} else if (document.chngpwd.cnfpass.value == "") {
-					alert("Chưa xác nhận mật khẩu !!");
-					document.chngpwd.cnfpass.focus();
-					return false;
-				} else if (document.chngpwd.newpass.value != document.chngpwd.cnfpass.value) {
-					alert("Mật khẩu không khớp  !!");
-					document.chngpwd.cnfpass.focus();
-					return false;
-				}
-				return true;
-			}
-		</script>
 
 	</head>
 
@@ -132,7 +112,7 @@ if (strlen($_SESSION['login']) == 0) {
 									<div class="panel-heading">
 										<h4 class="unicase-checkout-title">
 											<a data-toggle="collapse" class="" data-parent="#accordion" href="#collapseOne">
-												<span>1</span>Hồ sơ của tôi
+												<span>1</span>Địa chỉ thanh toán
 											</a>
 										</h4>
 									</div>
@@ -143,7 +123,6 @@ if (strlen($_SESSION['login']) == 0) {
 										<!-- panel-body  -->
 										<div class="panel-body">
 											<div class="row">
-												<h4>Thông tin cá nhân</h4>
 												<div class="col-md-12 col-sm-12 already-registered-login">
 
 													<?php
@@ -153,19 +132,19 @@ if (strlen($_SESSION['login']) == 0) {
 
 														<form class="register-form" role="form" method="post">
 															<div class="form-group">
-																<label class="info-title" for="name">Tên<span>*</span></label>
-																<input type="text" class="form-control unicase-form-control text-input" value="<?php echo $row['name']; ?>" id="name" name="name" required="required">
+																<label class="info-title" for="Billing Address">Địa chỉ thanh toán<span>*</span></label>
+																<textarea class="form-control unicase-form-control text-input" " name=" billingaddress" required="required"><?php echo $row['billingAddress']; ?></textarea>
 															</div>
 
 
 
 															<div class="form-group">
-																<label class="info-title" for="exampleInputEmail1">Email <span>*</span></label>
-																<input type="email" class="form-control unicase-form-control text-input" id="exampleInputEmail1" value="<?php echo $row['email']; ?>" readonly>
+																<label class="info-title" for="Billing State ">Quận/Huyện <span>*</span></label>
+																<input type="text" class="form-control unicase-form-control text-input" id="bilingstate" name="bilingstate" value="<?php echo $row['billingState']; ?>" required>
 															</div>
 															<div class="form-group">
-																<label class="info-title" for="Contact No.">Số điện thoại <span>*</span></label>
-																<input type="text" class="form-control unicase-form-control text-input" id="contactno" name="contactno" required="required" value="<?php echo $row['contactno']; ?>" maxlength="10">
+																<label class="info-title" for="Billing City">Tỉnh/Thành phố <span>*</span></label>
+																<input type="text" class="form-control unicase-form-control text-input" id="billingcity" name="billingcity" required="required" value="<?php echo $row['billingCity']; ?>">
 															</div>
 															<button type="submit" name="update" class="btn-upper btn btn-primary checkout-page-button">Cập nhật</button>
 														</form>
@@ -185,31 +164,37 @@ if (strlen($_SESSION['login']) == 0) {
 									<div class="panel-heading">
 										<h4 class="unicase-checkout-title">
 											<a data-toggle="collapse" class="collapsed" data-parent="#accordion" href="#collapseTwo">
-												<span>2</span>Đổi mật khẩu
+												<span>2</span>Địa chỉ giao hàng
 											</a>
 										</h4>
 									</div>
 									<div id="collapseTwo" class="panel-collapse collapse">
 										<div class="panel-body">
 
-											<form class="register-form" role="form" method="post" name="chngpwd" onSubmit="return valid();">
-												<div class="form-group">
-													<label class="info-title" for="Current Password">Mật khẩu hiện tại<span>*</span></label>
-													<input type="password" class="form-control unicase-form-control text-input" id="cpass" name="cpass" required="required">
-												</div>
+											<?php
+											$query = mysqli_query($con, "select * from users where id='" . $_SESSION['id'] . "'");
+											while ($row = mysqli_fetch_array($query)) {
+											?>
+
+												<form class="register-form" role="form" method="post">
+													<div class="form-group">
+														<label class="info-title" for="Shipping Address">Địa chỉ giao hàng<span>*</span></label>
+														<textarea class="form-control unicase-form-control text-input" " name=" shippingaddress" required="required"><?php echo $row['shippingAddress']; ?></textarea>
+													</div>
 
 
 
-												<div class="form-group">
-													<label class="info-title" for="New Password">Mật khẩu mới <span>*</span></label>
-													<input type="password" class="form-control unicase-form-control text-input" id="newpass" name="newpass">
-												</div>
-												<div class="form-group">
-													<label class="info-title" for="Confirm Password">Xác nhận mật khẩu <span>*</span></label>
-													<input type="password" class="form-control unicase-form-control text-input" id="cnfpass" name="cnfpass" required="required">
-												</div>
-												<button type="submit" name="submit" class="btn-upper btn btn-primary checkout-page-button">Thay đổi </button>
-											</form>
+													<div class="form-group">
+														<label class="info-title" for="Billing State ">Quận/Huyện <span>*</span></label>
+														<input type="text" class="form-control unicase-form-control text-input" id="shippingstate" name="shippingstate" value="<?php echo $row['shippingState']; ?>" required>
+													</div>
+													<div class="form-group">
+														<label class="info-title" for="Billing City">Tỉnh/Thành phố <span>*</span></label>
+														<input type="text" class="form-control unicase-form-control text-input" id="shippingcity" name="shippingcity" required="required" value="<?php echo $row['shippingCity']; ?>">
+													</div>
+													<button type="submit" name="shipupdate" class="btn-upper btn btn-primary checkout-page-button">Cập nhật</button>
+												</form>
+											<?php } ?>
 
 
 
@@ -221,7 +206,7 @@ if (strlen($_SESSION['login']) == 0) {
 
 							</div><!-- /.checkout-steps -->
 						</div>
-						<?php include('includes/myaccount-sidebar.php'); ?>
+						<?php include('includes/myaccount-sidebar2.php'); ?>
 					</div><!-- /.row -->
 				</div><!-- /.checkout-box -->
 

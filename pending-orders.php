@@ -25,7 +25,7 @@ if (strlen($_SESSION['login']) == 0) {
 		<meta name="keywords" content="MediaCenter, Template, eCommerce">
 		<meta name="robots" content="all">
 
-		<title>Lịch sử đơn hàng đang chờ</title>
+		<title>Đơn hàng đang chờ</title>
 		<link rel="stylesheet" href="assets/css/bootstrap.min.css">
 		<link rel="stylesheet" href="assets/css/main.css">
 		<link rel="stylesheet" href="assets/css/green.css">
@@ -111,7 +111,7 @@ if (strlen($_SESSION['login']) == 0) {
 
 										<tbody>
 
-											<?php $query = mysqli_query($con, "select products.productImage1 as pimg1,products.productName as pname,products.id as c,orders.productId as opid,orders.quantity as qty,products.productPrice as pprice,products.shippingCharge as shippingcharge,orders.paymentMethod as paym,orders.orderDate as odate,orders.id as oid from orders join products on orders.productId=products.id where orders.userId='" . $_SESSION['id'] . "' and orders.paymentMethod is null");
+											<?php $query = mysqli_query($con, "select products.productImage1 as pimg1,subcategory.subcategory as pname,products.id as proid,orders.productId as opid,orders.quantity as qty,products.productPrice as pprice,products.shippingCharge as shippingcharge,orders.paymentMethod as paym,orders.orderDate as odate,orders.id as oid from orders join products on orders.productId=products.id join subcategory on subcategory.id=products.subcategory where orders.userId='" . $_SESSION['id'] . "' and orders.paymentMethod is null");
 											$cnt = 1;
 											$num = mysqli_num_rows($query);
 											if ($num > 0) {

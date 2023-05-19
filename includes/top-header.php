@@ -16,7 +16,6 @@
 					<li><a href="my-account.php"><i class="icon fa fa-user"></i>Tài khoản của tôi</a></li>
 					<li><a href="my-wishlist.php"><i class="icon fa fa-heart"></i>Danh sách mong muốn</a></li>
 					<li><a href="my-cart.php"><i class="icon fa fa-shopping-cart"></i>Giỏ hàng của tôi</a></li>
-					<li><a href="#"><i class="icon fa fa-key"></i>Thanh toán</a></li>
 					<?php if (strlen($_SESSION['login']) == 0) {   ?>
 						<li><a href="login.php"><i class="icon fa fa-sign-in"></i>Đăng nhập</a></li>
 					<?php } else { ?>

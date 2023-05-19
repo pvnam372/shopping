@@ -28,7 +28,7 @@ $num_rows1 = mysqli_num_rows($result);
 					<li>
 						<a href="pending-orders.php">
 							<i class="icon-tasks"></i>
-							Đơn hàng chưa hoàn thành
+							Đơn hàng đang chờ
 <?php	
 $status='Delivered';									 
 $ret = mysqli_query($con,"SELECT * FROM Orders where orderStatus!='$status' || orderStatus is null ");

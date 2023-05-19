@@ -15,7 +15,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Admin| Pending Orders</title>
+		<title>Admin| Đơn hàng đã giao</title>
 		<link type="text/css" href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 		<link type="text/css" href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
 		<link type="text/css" href="css/theme.css" rel="stylesheet">
@@ -62,12 +62,11 @@ if (strlen($_SESSION['alogin']) == 0) {
 										<thead>
 											<tr>
 												<th>#</th>
-												<th>Tên</th>
 												<th width="50">Email /Sđt</th>
 												<th>Địa chỉ giao hàng</th>
 												<th>Sản phẩm</th>
 												<th>Số lượng</th>
-												<th>Tồn kho</th>
+												<th>Tiền</th>
 												<th>Ngày đặt</th>
 												<th>Tùy chỉnh</th>
 
@@ -78,7 +77,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 										<tbody>
 											<?php
 											$st = 'Delivered';
-											$query = mysqli_query($con, "select users.name as username,users.email as useremail,users.contactno as usercontact,users.shippingAddress as shippingaddress,users.shippingCity as shippingcity,users.shippingState as shippingstate,users.shippingPincode as shippingpincode,subcategory.subcategory as productname,products.shippingCharge as shippingcharge,orders.quantity as quantity,orders.orderDate as orderdate,products.productPrice as productprice,orders.id as id  from orders join users on  orders.userId=users.id join products on products.id=orders.productId join subcategory on subcategory.id=products.subcategory where orders.orderStatus='$st'");
+											$query = mysqli_query($con, "select users.name as username,users.email as useremail,users.contactno as usercontact,users.shippingAddress as shippingaddress,users.shippingCity as shippingcity,users.shippingState as shippingstate,users.shippingPincode as shippingpincode,products.shippingCharge as shippingcharge,orders.quantity as quantity,orders.orderDate as orderdate,products.productPrice as productprice,orders.id as id  from orders join users on  orders.userId=users.id join products on products.id=orders.productId where orders.orderStatus='$st'");
 											$cnt = 1;
 											while ($row = mysqli_fetch_array($query)) {
 											?>
@@ -88,7 +87,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 													<td><?php echo htmlentities($row['useremail']); ?>/<?php echo htmlentities($row['usercontact']); ?></td>
 
 													<td><?php echo htmlentities($row['shippingaddress'] . "," . $row['shippingcity'] . "," . $row['shippingstate'] . "-" . $row['shippingpincode']); ?></td>
-													<td><?php echo htmlentities($row['productname']); ?></td>
+													
 													<td><?php echo htmlentities($row['quantity']); ?></td>
 													<td><?php echo htmlentities($row['quantity'] * $row['productprice'] + $row['shippingcharge']); ?></td>
 													<td><?php echo htmlentities($row['orderdate']); ?></td>

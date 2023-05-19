@@ -68,7 +68,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 												<th>Địa chỉ giao hàng</th>
 												<th>Sản phẩm</th>
 												<th>Số lượng</th>
-												<th>Tồn kho </th>
+												<th>Tiền </th>
 												<th>Ngày đặt</th>
 												<th>Tùy chỉnh</th>
 

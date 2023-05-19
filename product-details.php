@@ -93,7 +93,7 @@ if (isset($_POST['submit'])) {
 		<div class="container">
 			<div class="breadcrumb-inner">
 				<?php
-				$ret = mysqli_query($con, "select category.categoryName as catname,subcategory.subcategory as subcatname,products.productName as pname from products join category on category.id=products.category join subcategory on subcategory.id=products.subcategory where products.id='$pid'");
+				$ret = mysqli_query($con, "select category.categoryName as catname,subcategory.subcategory as pname from products join category on category.id=products.category join subcategory on subcategory.id=products.subcategory where products.id='$pid'");
 				while ($rw = mysqli_fetch_array($ret)) {
 
 				?>
@@ -141,7 +141,7 @@ if (isset($_POST['submit'])) {
 							<div class="owl-carousel sidebar-carousel custom-carousel owl-theme outer-top-xs">
 
 								<?php
-								$ret = mysqli_query($con, "select * from products order by rand() limit 4 ");
+								$ret = mysqli_query($con, "select products.*,subcategory.subcategory as productName from products join subcategory on subcategory.id=products.subcategory order by rand() limit 4 ");
 								while ($rws = mysqli_fetch_array($ret)) {
 
 								?>
@@ -157,7 +157,7 @@ if (isset($_POST['submit'])) {
 											</div><!-- /.hot-deal-wrapper -->
 
 											<div class="product-info text-left m-t-20">
-												<h3 class="name"><a href="product-details.php?pid=<?php echo htmlentities($rws['id']); ?>"><?php echo htmlentities($rws['productName']); ?></a></h3>
+												<h3 class="name"><a href="product-details.php?pid=<?php echo htmlentities($rws['id']); ?>"><?php echo htmlentities($rws['productName']); ?> <?php echo htmlentities($rws['productcapacity']); ?> <?php echo htmlentities($rws['productColor']); ?></a></h3>
 												<div class="rating rateit-small"></div>
 
 												<div class="product-price">
@@ -197,7 +197,7 @@ if (isset($_POST['submit'])) {
 					</div>
 				</div><!-- /.sidebar -->
 				<?php
-				$ret = mysqli_query($con, "select * from products where id='$pid'");
+				$ret = mysqli_query($con, "select products.*,subcategory.subcategory as productName from products join subcategory on subcategory.id=products.subcategory where products.id='$pid'");
 				while ($row = mysqli_fetch_array($ret)) {
 
 				?>
@@ -316,7 +316,7 @@ if (isset($_POST['submit'])) {
 										<div class="row">
 											<div class="col-sm-3">
 												<div class="stock-box">
-													<span class="label">Thương hiệu :</span>
+													<span class="label">Màu sắc :</span>
 												</div>
 											</div>
 											<div class="col-sm-9">
@@ -412,7 +412,7 @@ if (isset($_POST['submit'])) {
 										<span class="social-label">Chia sẻ :</span>
 										<div class="social-icons">
 											<ul class="list-inline">
-												<li><a class="fa fa-facebook" href="http://facebook.com/transvelo"></a></li>
+												<li><a class="fa fa-facebook" href="#"></a></li>
 												<li><a class="fa fa-twitter" href="#"></a></li>
 												<li><a class="fa fa-linkedin" href="#"></a></li>
 												<li><a class="fa fa-rss" href="#"></a></li>
@@ -616,3 +616,4 @@ if (isset($_POST['submit'])) {
 </body>
 
 </html>
+<!-- <div class="HoUsOy" style="box-sizing: border-box; margin: 0px; padding: 0px 0px 16px; font-size: 18px; white-space: nowrap; line-height: 1.4; color: rgb(33, 33, 33); font-family: Roboto, Arial, sans-serif;">Tổng quan</div><ul style="box-sizing: border-box; margin-bottom: 0px; margin-left: 0px; color: rgb(33, 33, 33); font-family: Roboto, Arial, sans-serif; font-size: 14px;"><li class="_1KuY3T row" style="box-sizing: border-box; margin: 0px; padding: 0px 0px 16px; list-style: none; display: flex; flex-flow: row wrap; width: 731px;"><div class="vmXPri col col-3-12" style="box-sizing: border-box; margin: 0px; padding: 0px 8px 0px 0px; width: 182.75px; display: inline-block; vertical-align: top; color: rgb(135, 135, 135);">Trọng lượng sản phẩm</div><ul class="_3dG3ix col col-9-12" style="box-sizing: border-box; margin-left: 0px; width: 548.25px; display: inline-block; vertical-align: top; line-height: 1.4;"><li class="sNqDog" style="box-sizing: border-box; margin: 0px; padding: 0px; list-style: none;">240 g</li></ul></li><li class="_1KuY3T row" style="box-sizing: border-box; margin: 0px; padding: 0px 0px 16px; list-style: none; display: flex; flex-flow: row wrap; width: 731px;"><div class="vmXPri col col-3-12" style="box-sizing: border-box; margin: 0px; padding: 0px 8px 0px 0px; width: 182.75px; display: inline-block; vertical-align: top; color: rgb(135, 135, 135);">Phiên bản CPU</div><ul class="_3dG3ix col col-9-12" style="box-sizing: border-box; margin-left: 0px; width: 548.25px; display: inline-block; vertical-align: top; line-height: 1.4;"><li class="sNqDog" style="box-sizing: border-box; margin: 0px; padding: 0px; list-style: none;">Apple A16 Bionic</li></ul></li><li class="_1KuY3T row" style="box-sizing: border-box; margin: 0px; padding: 0px 0px 16px; list-style: none; display: flex; flex-flow: row wrap; width: 731px;"><div class="vmXPri col col-3-12" style="box-sizing: border-box; margin: 0px; padding: 0px 8px 0px 0px; width: 182.75px; display: inline-block; vertical-align: top; color: rgb(135, 135, 135);">Số nhân</div><ul class="_3dG3ix col col-9-12" style="box-sizing: border-box; margin-left: 0px; width: 548.25px; display: inline-block; vertical-align: top; line-height: 1.4;"><li class="sNqDog" style="box-sizing: border-box; margin: 0px; padding: 0px; list-style: none;">6</li></ul></li><li class="_1KuY3T row" style="box-sizing: border-box; margin: 0px; padding: 0px 0px 16px; list-style: none; display: flex; flex-flow: row wrap; width: 731px;"><div class="vmXPri col col-3-12" style="box-sizing: border-box; margin: 0px; padding: 0px 8px 0px 0px; width: 182.75px; display: inline-block; vertical-align: top; color: rgb(135, 135, 135);">Kích thước màn hình</div><ul class="_3dG3ix col col-9-12" style="box-sizing: border-box; margin-left: 0px; width: 548.25px; display: inline-block; vertical-align: top; line-height: 1.4;"><li class="sNqDog" style="box-sizing: border-box; margin: 0px; padding: 0px; list-style: none;">6.7 inch</li></ul></li><li class="_1KuY3T row" style="box-sizing: border-box; margin: 0px; padding: 0px 0px 16px; list-style: none; display: flex; flex-flow: row wrap; width: 731px;"><div class="vmXPri col col-3-12" style="box-sizing: border-box; margin: 0px; padding: 0px 8px 0px 0px; width: 182.75px; display: inline-block; vertical-align: top; color: rgb(135, 135, 135);">Độ phân giải</div><ul class="_3dG3ix col col-9-12" style="box-sizing: border-box; margin-left: 0px; width: 548.25px; display: inline-block; vertical-align: top; line-height: 1.4;"><li class="sNqDog" style="box-sizing: border-box; margin: 0px; padding: 0px; list-style: none;">2796 x 1290 Pixels</li></ul></li><li class="_1KuY3T row" style="box-sizing: border-box; margin: 0px; padding: 0px 0px 16px; list-style: none; display: flex; flex-flow: row wrap; width: 731px;"><div class="vmXPri col col-3-12" style="box-sizing: border-box; margin: 0px; padding: 0px 8px 0px 0px; width: 182.75px; display: inline-block; vertical-align: top; color: rgb(135, 135, 135);">Bộ nhớ trong</div><ul class="_3dG3ix col col-9-12" style="box-sizing: border-box; margin-left: 0px; width: 548.25px; display: inline-block; vertical-align: top; line-height: 1.4;"><li class="sNqDog" style="box-sizing: border-box; margin: 0px; padding: 0px; list-style: none;">128 GB</li></ul></li><li class="_1KuY3T row" style="box-sizing: border-box; margin: 0px; padding: 0px 0px 16px; list-style: none; display: flex; flex-flow: row wrap; width: 731px;"><div class="vmXPri col col-3-12" style="box-sizing: border-box; margin: 0px; padding: 0px 8px 0px 0px; width: 182.75px; display: inline-block; vertical-align: top; color: rgb(135, 135, 135);">Màu sắc</div><ul class="_3dG3ix col col-9-12" style="box-sizing: border-box; margin-left: 0px; width: 548.25px; display: inline-block; vertical-align: top; line-height: 1.4;"><li class="sNqDog" style="box-sizing: border-box; margin: 0px; padding: 0px; list-style: none;">Đen</li></ul></li></ul> -->
