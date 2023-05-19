@@ -76,7 +76,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 										</thead>
 
 										<tbody>
-											<?php
+										<?php
 											$f1 = "00:00:00";
 											$from = date('Y-m-d') . " " . $f1;
 											$t1 = "23:59:59";
@@ -91,7 +91,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 													<td><?php echo htmlentities($row['useremail']); ?>/<?php echo htmlentities($row['usercontact']); ?></td>
 
 													<td><?php echo htmlentities($row['shippingaddress'] . "," . $row['shippingcity'] . "," . $row['shippingstate'] . "-" . $row['shippingpincode']); ?></td>
-													<td><?php echo htmlentities($row['producname']); ?></td>
+													<td><?php echo htmlentities($row['productname']); ?></td>
 													<td><?php echo htmlentities($row['quantity']); ?></td>
 													<td><?php echo htmlentities($row['quantity'] * $row['productprice'] + $row['shippingcharge']); ?></td>
 													<td><?php echo htmlentities($row['orderdate']); ?></td>
